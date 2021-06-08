@@ -1,0 +1,8 @@
+process 2
+
+11 start
+16 recv <15,3>
+17 reply 2 to <15,3>
+18 request <18,2>
+51 recv reply 3
+52 recv <45,1>
