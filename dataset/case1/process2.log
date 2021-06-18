@@ -6,3 +6,4 @@ process 2
 18 request <18,2>
 51 recv reply 3
 52 recv <45,1>
+53 recv release 3

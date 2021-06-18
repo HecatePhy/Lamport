@@ -14,7 +14,7 @@ class Process():
     def add_action(self, aid, action):
         #self.actions[aid] = action
         self.actions.append(action)
-        if action.action == 'reply' or action.action == 'request':
+        if action.action in {'reply', 'request', 'release'}:
             for proc in action.send_to():
                 if proc not in self.channels:
                     self.channels[proc] = []
@@ -22,3 +22,10 @@ class Process():
         else:
             pass
         return
+
+    # find action by aid
+    def find_action(self, aid):
+        for action in self.actions:
+            if action.aid == aid:
+                return action
+        return None

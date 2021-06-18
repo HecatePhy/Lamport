@@ -52,6 +52,10 @@ def parse_logs(lamport, filedir):
                     # recv reply
                     elif len(segs) == 4:
                         arguments['message'] = ('reply', int(segs[3]))
+                elif action == 'release':
+                    # TODO
+                    msg = re.split('<|>|,', segs[2])
+                    arguments['message'] = (int(msg[1]), int(msg[2]))
                 else:
                     print("[WARNING] Unknown action")
                 aid = aid_cnt

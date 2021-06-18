@@ -11,7 +11,7 @@ import networkx as nx
 class Lamport():
     def __init__(self):
         self.graph = nx.DiGraph()
-        #self.aid2pid = {}
+        self.aid2pid = {}
         self.processes = {}
         self.sorted_actions = []
         pass
@@ -22,6 +22,8 @@ class Lamport():
         for _, process in self.processes.items():
             for i in range(len(process.actions)-1):
                 self.graph.add_edge(process.actions[i].aid, process.actions[i+1].aid)
+                self.aid2pid[process.actions[i].aid] = process.pid
+                self.aid2pid[process.actions[i+1].aid] = process.pid
 
         # traverse the message channels to find an order between <send, recv>
         for _, process in self.processes.items():
@@ -40,3 +42,9 @@ class Lamport():
         self.sorted_actions = list(nx.topological_sort(self.graph))
 
         return
+
+    # show the actions in a logical order
+    def show_sorted_actions(self):
+        for aid in self.sorted_actions:
+            pid = self.aid2pid[aid]
+            print(self.processes[pid].find_action(aid))

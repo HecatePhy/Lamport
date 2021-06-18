@@ -7,3 +7,4 @@ process 1
 49 recv reply 3
 50 recv <18,2>
 51 reply 1 to <18,2>
+52 recv release 3

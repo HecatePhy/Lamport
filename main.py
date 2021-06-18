@@ -6,6 +6,7 @@
 
 from gui.Lamport import *
 from gui.Parser import *
+from gui.Plot import *
 
 import sys
 
@@ -15,6 +16,8 @@ def main(filedir):
     lamport.construct_graph()
     lamport.sort_actions()
     print(lamport.sorted_actions)
+    lamport.show_sorted_actions()
+    animate_logs(lamport)
     pass
 
 if __name__ == "__main__":

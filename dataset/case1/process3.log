@@ -9,3 +9,4 @@ process 3
 48 reply 3 to <45,1>
 49 recv <18,2>
 50 reply 3 to <18,2>
+51 release <15,3>

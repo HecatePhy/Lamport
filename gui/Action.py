@@ -24,9 +24,17 @@ class Action():
 
     # send msg to those processes
     def send_to(self):
-        assert self.action == 'request' or self.action == 'reply', "[ERROR] Not a send action"
+        assert self.action in {'request', 'reply', 'release'}, "[ERROR] Not a send action"
         if self.action == 'request':
             return self.processes
         elif self.action == 'reply':
             # 'replyto': a tuple <tt, pid> representing the original message
             return [self.args['replyto'][1]]
+        elif self.action == 'release':
+            return self.processes
+
+    def __str__(self):
+        return "PID " + str(self.pid) + " AID " + str(self.aid) + " TIMESTAMP " + str(self.timestamp) + " ACTION " + self.action
+
+    def __repr__(self):
+        return self.__str__()
