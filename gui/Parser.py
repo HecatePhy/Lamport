@@ -18,13 +18,16 @@ def parse_logs(lamport, filedir):
 
     aid_cnt = 0
     for log_file in log_files:
+        pid = int(re.findall(r'\d+', log_file)[-1])
+        proc = Process(pid)
         with open(log_file, 'r') as f:
             lines = f.readlines()
-            pid = int(lines[0].split()[1])
+            #pid = int(lines[0].split()[1])
 
-            proc = Process(pid)
+            #proc = Process(pid)
 
-            for line in lines[1:]:
+            #for line in lines[1:]:
+            for line in lines:
                 segs = line.split()
                 if len(segs) < 1:
                     continue

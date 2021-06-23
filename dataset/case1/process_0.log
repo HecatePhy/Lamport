@@ -1,0 +1,56 @@
+5 recv <4,1>
+6 reply 0 to <4,1>
+7 recv <1,2>
+8 reply 0 to <1,2>
+9 recv <4,3>
+10 reply 0 to <4,3>
+14 recv release 2
+15 recv <14,2>
+16 reply 0 to <14,2>
+17 request <17,0>
+20 recv reply 1
+23 recv release 1
+24 recv reply 2
+26 recv reply 3
+27 recv <23,1>
+28 reply 0 to <23,1>
+29 recv release 3
+30 recv <28,3>
+31 reply 0 to <28,3>
+32 recv release 2
+33 release <17,0>
+34 request <34,0>
+38 recv release 1
+41 recv release 3
+42 recv reply 1
+44 recv reply 3
+45 recv reply 2
+46 release <34,0>
+47 request <47,0>
+48 recv <42,2>
+49 reply 0 to <42,2>
+52 recv reply 3
+53 recv reply 1
+54 recv reply 2
+58 recv <57,1>
+59 reply 0 to <57,1>
+60 recv release 2
+61 release <47,0>
+62 recv <61,3>
+63 reply 0 to <61,3>
+65 recv release 1
+66 request <66,0>
+69 recv reply 1
+70 recv release 3
+71 recv reply 2
+72 recv reply 3
+73 release <66,0>
+74 recv <70,2>
+75 reply 0 to <70,2>
+79 recv release 2
+81 recv <80,3>
+82 reply 0 to <80,3>
+84 recv <83,1>
+85 reply 0 to <83,1>
+87 recv release 3
+91 recv release 1
