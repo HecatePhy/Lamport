@@ -14,6 +14,7 @@ class Lamport():
         self.aid2pid = {}
         self.processes = {}
         self.sorted_actions = []
+        self.message_pairs = {}
         pass
 
     # edge <aid1, aid2> means action1 is earlier than action2
@@ -33,6 +34,7 @@ class Lamport():
                 pid = action.recv_from()
                 proc = self.processes[pid]
                 aid, _ = proc.channels[process.pid].pop(0)
+                self.message_pairs[action.aid] = aid 
                 self.graph.add_edge(aid, action.aid)
         
         return
