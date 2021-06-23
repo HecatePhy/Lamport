@@ -11,6 +11,7 @@ class Plotter():
     def __init__(self, lamport):
         self.lamport = lamport
         self.root = tkinter.Tk()
+        self.root.title("Lamport Visualization")
 
         self.width = 1600
         self.height = 1000
@@ -30,6 +31,11 @@ class Plotter():
 
         # animation parameters
         self.animate_interval = 200
+        self.animate_suspend_flag = False
+        self.animate_suspend_seconds = 3
+
+        # bind mouth click
+        self.canvas.bind(sequence="<Button-1>", func=self.mouth_click_handler)
 
     def animate(self):
         self.canvas.pack()
@@ -50,9 +56,18 @@ class Plotter():
             self.canvas.create_text(self.process_namex, height, text="Process"+str(process))
 
     def draw_action(self, x):
+        # suspend if set animate_suspend
+        if self.animate_suspend_flag:
+            sleep(self.animate_suspend_seconds)
+            self.animate_suspend_flag = False
+
         aid = self.lamport.sorted_actions[self.action_count]
         self.action_count += 1
         action = self.lamport.processes[self.lamport.aid2pid[aid]].find_action(aid)
         y = self.process_height - self.process_stride * action.pid - self.action_diameter / 2
         self.canvas.create_oval(x, y, x+self.action_diameter, y+self.action_diameter, fill="pink")
         self.root.after(self.animate_interval, self.draw_action, x+self.action_interval)
+
+    def mouth_click_handler(self, mouth_click_event):
+        self.animate_suspend_flag = True
+        print("suspend", self.animate_suspend_seconds, "s")
