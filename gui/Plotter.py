@@ -33,6 +33,14 @@ class Plotter():
         self.action_positions = {}
         self.action_tag = "ACTION"
 
+        # statistic parameters
+        self.statistic_message_count = 0
+        self.statistic_request_count = 0
+        self.statistic_message_var = tkinter.IntVar()
+        self.statistic_request_var = tkinter.IntVar()
+        tkinter.Label(self.root, text="Message", bg="misty rose").place(x=245,y=670,anchor="nw")
+        tkinter.Label(self.root, text="Request", bg="misty rose").place(x=185,y=670,anchor="nw")
+
         # animation parameters
         self.animate_interval = 500
         self.animate_suspend_flag = False
@@ -88,6 +96,14 @@ class Plotter():
             sid = self.lamport.message_pairs[action.aid]
             sx, sy = self.action_positions[sid]
             self.canvas.create_line(sx, sy, x+self.action_diameter/2, y+self.action_diameter/2, arrow=tkinter.LAST, tags=self.action_tag)
+            self.statistic_message_count += 1
+        elif action.action == "request":
+            self.statistic_request_count += 1
+        # update statistic display
+        self.statistic_message_var.set(self.statistic_message_count)
+        self.statistic_request_var.set(self.statistic_request_count)
+        tkinter.Label(self.root, text=str(self.statistic_message_var.get()), width=3, height=2).place(x=260, y=700, anchor="nw")
+        tkinter.Label(self.root, text=str(self.statistic_request_var.get()), width=3, height=2).place(x=200, y=700, anchor="nw")
 
         # refresh
         if not self.animate_refresh_flag and x > self.animate_refresh_threshold:
