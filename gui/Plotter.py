@@ -38,6 +38,7 @@ class Plotter():
         self.animate_suspend_flag = False
         self.animate_suspend_seconds = 3
         self.animate_halt_flag = False
+        self.animate_halt_x = -1
         self.animate_refresh_flag = False
         self.animate_refresh_threshold = 1420
         self.animate_refresh_interval = 10
@@ -70,6 +71,7 @@ class Plotter():
             sleep(self.animate_suspend_seconds)
             self.animate_suspend_flag = False
         if self.animate_halt_flag:
+            self.animate_halt_x = x
             return
 
         aid = self.lamport.sorted_actions[self.action_count]
@@ -103,11 +105,16 @@ class Plotter():
 
     def mouth_click_handler(self, mouth_click_event):
         self.animate_suspend_flag = True
-        print("suspend", self.animate_suspend_seconds, "s")
+        print("suspend", self.animate_suspend_seconds, "s!")
 
     def mouth_click_handler2(self, mouth_click_event):
-        self.animate_halt_flag = True
-        print("halt!")
+        if self.animate_halt_flag == False:
+            self.animate_halt_flag = True
+            print("halt!")
+        elif self.animate_halt_flag == True:
+            self.animate_halt_flag = False
+            self.draw_action(self.animate_halt_x)
+            print("Resume!")
 
     def refresh_action_move(self):
         self.canvas.move(self.action_tag, -1, 0)
